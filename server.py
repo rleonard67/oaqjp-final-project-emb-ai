@@ -13,7 +13,13 @@ def run_emotion_detection():
 def emotion_detector(): 
     text_to_analyze = request.args.get('textToAnalyze')
     response = emotion_detector(text_to_detect)
-    response['form-label'] dominant_emotion = response['dominant_emotion']
+    #response['form-label'] dominant_emotion = response['dominant_emotion']
+    dominant_emotion = response.get("dominant_emotion", "unknown")
+    print(dominant_emotion)
+    return jsonify({
+        "text": text_to_analyze,
+        "dominant_emotion": dominant_emotion
+    })
 
 @app.route("/")
 def render_index_page():
