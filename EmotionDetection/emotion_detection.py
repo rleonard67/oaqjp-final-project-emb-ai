@@ -6,8 +6,8 @@ def emotion_detector(text_to_analyze):
     myobj = { "raw_document": { "text": text_to_analyze } }
     response = requests.post(url, json=myobj, headers=header)
     formatted_response = json.loads(response.text)
-    print(formatted_response)
     emotions = formatted_response['emotionPredictions'][0]['emotion']
-    print(emotions)
-    dominant_key = max(emotions, key=emotions.get)
-    print(f"Dominant key: {dominant_key}, Value: {emotions[dominant_key]}")
+    dominant_emotion = max(emotions, key=emotions.get)
+    #print(dominant_emotion)
+    emotions['dominant_emotion'] = dominant_emotion
+    return emotions
