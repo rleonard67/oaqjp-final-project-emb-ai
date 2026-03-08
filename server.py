@@ -13,10 +13,7 @@ def emotion_analyzer():
     joy = emotions['joy']
     sadness = emotions['sadness']
     dominant_emotion = emotions['dominant_emotion']
-    responses = f"""For the given statement, the system response is
-    'anger': {anger}, 'disgust': {disgust}, 'fear': {fear}, 'joy': {joy}, 'sadness': {sadness}.
-    The dominant emotion is <strong>{dominant_emotion}</strong>."""
-    #responses = "For the given statement, the system response is 'anger': " + anger 
+    responses = f"For the given statement, the system response is 'anger': {anger}, 'disgust': {disgust}, 'fear': {fear}, 'joy': {joy}, 'sadness': {sadness}. The dominant emotion is <strong>{dominant_emotion}</strong>. "
     return responses
 
 @app.route("/")
