@@ -1,29 +1,26 @@
-from flask import Flask, render_template, request
+from flask import Flask, request, render_template
 from EmotionDetection.emotion_detection import emotion_detector
 
-app = Flask("Emotion Detection")
+app = Flask("Emotion Detector")
 
-def run_emotion_detection():
-    """
-    Main function to run the Emotion Detection application.
-    """
-    app.run(host="0.0.0.0", port=5000)
-
-@app.route("/emotionDetector", methods=["POST"]) 
-def emotion_detector(): 
+@app.route("/emotionDetector")
+def emotion_analyzer():
     text_to_analyze = request.args.get('textToAnalyze')
-    response = emotion_detector(text_to_detect)
-    #response['form-label'] dominant_emotion = response['dominant_emotion']
-    dominant_emotion = response.get("dominant_emotion", "unknown")
-    print(dominant_emotion)
-    return jsonify({
-        "text": text_to_analyze,
-        "dominant_emotion": dominant_emotion
-    })
+    emotion_result = emotion_detector(text_to_analyze)
+    anger = emotion_result['anger']
+    disgust = emotion_result['disgust']
+    fear = emotion_result['fear']
+    joy = emotion_result['joy']
+    sadness = emotion_result['sadness']
+    dominant_emotion = emotion_result['dominant_emotion']
+    response = f"""For the given statement, the system response is
+    'anger': {anger}, 'disgust': {disgust}, 'fear': {fear}, 'joy': {joy}, 'sadness': {sadness}.
+    The dominant emotion is <strong>{dominant_emotion}</strong>
+    return response
 
 @app.route("/")
 def render_index_page():
     return render_template('index.html')
 
 if __name__ == "__main__":
-    run_emotion_detection()
+    app.run(host="0.0.0.0", port=5000)
